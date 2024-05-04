@@ -1,1 +1,1 @@
-simple app to store patients info
+simple app to store patients information
