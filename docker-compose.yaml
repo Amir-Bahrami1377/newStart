@@ -1,0 +1,25 @@
+version: '2.27.0'
+services:
+  postgres-newstart:
+    image: postgres:latest
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    restart: unless-stopped
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: newstartdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: amirKhan1377
+      POSTGRES_HOST: postgres-newstart
+  django-newstart:
+    build: .
+      command: [ "python", "manage.py", "runserver", "0.0.0.0:8000" ]
+      volumes:
+        - .:/app
+      ports:
+        - "8000:8000"
+      depends_on:
+        - postgres-newstart
+      environment:
+        - DJANGO_SETTINGS_MODULE=newStart.settings
